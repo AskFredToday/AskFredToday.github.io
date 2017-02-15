@@ -1,0 +1,13 @@
+af-timepicker {
+    display: inline-block;
+    width: 300px;
+}
+af-timepicker af-select input, af-timepicker af-select > div {
+    width: 170px;
+}
+af-timepicker af-select {
+    margin-right: 10px;
+}
+af-timepicker af-input input {
+    width: 60px;
+}

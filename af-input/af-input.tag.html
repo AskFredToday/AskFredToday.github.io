@@ -1,0 +1,34 @@
+<af-input>
+    <input value="{opts.initvalue}" onfocus={ onFocus } onblur={ onBlur } type={ opts.type }>
+    <label onclick={ focusInput }>{ opts.label }</label>
+    <div class="after"></div>
+
+    <script>
+        var self = this;
+        this.on('mount', function(){
+            this.inputField = this.root.getElementsByTagName('input')[0];
+            this.updateClassName();
+        })
+
+        onFocus(e) {
+            this.inputField.className = 'isFocused isFilled'
+        }
+
+        onBlur(e) {
+            this.updateClassName();
+            opts.bus && opts.bus.trigger('newValue', this.opts.iid, e.target.value);
+        }
+        
+        focusInput() {
+            this.inputField.focus();
+        }
+
+        updateClassName() {
+            this.inputField.className = (this.inputField.value != '')?'isFilled':'';
+        }
+
+        opts.bus && opts.bus.on('setValue', function(newValue) {
+            self.inputField.value = newValue;
+        });
+    </script>
+</af-input>

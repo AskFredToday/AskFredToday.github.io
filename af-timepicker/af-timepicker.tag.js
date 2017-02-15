@@ -1,0 +1,71 @@
+riot.tag2('af-timepicker', '<af-select label="{opts.label + ⁗ date⁗}" initvalue="{day}" options="{availableDays}" bus="{dayBus}"></af-select><af-input label="{opts.label + ⁗ time⁗}" initvalue="{time}" bus="{timeBus}"></af-input>', '', '', function(opts) {
+    var self = this;
+
+    self.availableDays = [];
+    var weekday=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    var month=['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+    var now = new Date(opts.max.valueOf());
+    while(now > opts.min)
+    {
+        self.availableDays.push({id: now, title: format_date(now)});
+        now = new Date( now.valueOf() - 24 * 3600 * 1000);
+    }
+
+    function addZero(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
+    function refresh_date() {
+        self.day = {title: format_date(self.currentvalue)};
+        self.time = format_time(self.currentvalue);
+        self.timeBus.trigger("setValue", self.time);
+        self.dayBus.trigger("setValue", self.day);
+    }
+    function format_date(now) {
+        return weekday[ now.getDay() ] + ' ' + now.getDate() + ' ' + month[ now.getMonth() ];
+    }
+    function format_time(now) {
+        return addZero(now.getHours()) + ':' + addZero(now.getMinutes());
+    }
+
+    opts.bus && opts.bus.on('newValue', function(value) {
+        self.currentvalue = new Date(value);
+        refresh_date();
+    });
+
+    this.dayBus = riot.observable();
+    this.dayBus.fred = true;
+    this.dayBus.on('newValue', function(optionObject) {
+        console.log(optionObject);
+        var option = optionObject.id;
+        self.currentvalue.setFullYear(option.getFullYear());
+        self.currentvalue.setMonth(option.getMonth());
+        self.currentvalue.setDate(option.getDate());
+        self.opts.bus && self.opts.bus.trigger('value', self.currentvalue);
+    });
+
+    this.timeBus = riot.observable();
+    this.timeBus.on('newValue', function(id, value) {
+        console.log(value);
+        var splitted = value.split(':');
+        if(splitted.length > 1)
+        {
+            var hours = parseInt(splitted[0], 10);
+            self.currentvalue.setHours(hours);
+            var minutes = parseInt(splitted[1], 10);
+            self.currentvalue.setMinutes(minutes);
+            self.opts.bus && self.opts.bus.trigger('value', self.currentvalue);
+        }
+        else
+        {
+            refresh_date();
+        }
+    });
+
+    this.currentvalue = opts.initvalue;
+    refresh_date();
+
+});

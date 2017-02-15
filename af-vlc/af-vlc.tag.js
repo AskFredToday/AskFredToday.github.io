@@ -1,4 +1,4 @@
-riot.tag2('af-vlc', '<h2>{opts.title}</h2><embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org" width="320" height="180">', '', '', function(opts) {
+riot.tag2('af-vlc', '<h2>{opts.title} ({this.opts.url})</h2><embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org" width="320" height="180">', '', '', function(opts) {
 
 
         this.on('mount', function() {

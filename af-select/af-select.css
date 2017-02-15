@@ -1,0 +1,88 @@
+af-select {
+    padding-top: 17px;
+    position: relative;
+    display: inline-block;
+    width: 200px;
+}
+af-select .input {
+    border: none;
+    outline: none;
+    border-bottom: 1px solid rgba(0,0,0,.12);
+    width: 220px;
+    background: none;
+    padding-right: 40px;
+}
+af-select label {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 17px;
+    padding-top: 14px;
+    transition: all .2s;
+    transition-timing-function: cubic-bezier(.4,0,.2,1);
+}
+af-select i {
+    position: absolute;
+    right: -3px;
+    top: 14px;
+}
+af-select * {
+    cursor: pointer;
+}
+label, i {
+    color: rgba(0,0,0,.12);
+}
+af-select .input.isFilled ~ label {
+    padding-top: 0px;
+    font-size: 12px;
+}
+af-select > div.options {
+    position: absolute;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+    left: 0px;
+    top: -5px;
+    background: white;
+    width: 220px;
+    max-height:60px;
+    visibility: hidden;
+    overflow-y:scroll;
+    overflow-x:hidden;
+    z-index:999;
+    transition: all 0.2s;
+    transition-timing-function: cubic-bezier(.4,0,.2,1);
+}
+af-select .input.isFocused ~ div {
+    visibility: visible;
+    display: block;
+    max-height: 500px;
+}
+af-select ul {
+    padding: 0px;
+    margin: 0px;
+    overflow: auto;
+}
+af-select li {
+    list-style-type: none;
+    white-space: nowrap;      
+    padding: 20px;
+}
+af-select li:hover {
+    background-color: rgba(0,0,0,0.2) !important;
+}
+af-select li.current {
+    background-color: rgba(0,0,0,0.1);
+}
+af-select .overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+    top: 0;
+    left: 0;
+    z-index: 998;
+    opacity: 0;
+}
+af-select .input.isFocused ~ .overlay {
+    visibility: visible;
+}
