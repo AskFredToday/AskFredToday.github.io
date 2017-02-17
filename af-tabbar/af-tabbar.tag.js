@@ -1,4 +1,4 @@
-riot.tag2('af-tabbar', '<ul><li each="{tab, i in tabs}" class="tab {is-active: parent.isActiveTab(tab.id)}" onclick="{parent.toggleTab}">{tab.title}</li></ul><div class="after"></div>', '', '', function(opts) {
+riot.tag2('af-tabbar', '<ul><li each="{tab, i in tabs}" class="{is-active: parent.isActiveTab(tab.id)}" onclick="{parent.toggleTab}">{tab.title}</li></ul><div class="after"></div>', '', '', function(opts) {
   var self = this;
   self.tabs = opts.tabs;
   self.activeTab = opts.active || opts.tabs && opts.tabs[0];
@@ -15,9 +15,11 @@ riot.tag2('af-tabbar', '<ul><li each="{tab, i in tabs}" class="tab {is-active: p
     self.opts.bus && self.opts.bus.trigger('tabchanged', e.item.tab);
   }
   this.on('mount', function() {
-    self.toggleTab({
-      'target' : self.root.getElementsByClassName('is-active')[0],
-      'item' : {'tab' : self.activeTab}
-    });
+    setTimeout(function() {
+      self.toggleTab({
+        'target' : self.root.getElementsByClassName('is-active')[0],
+        'item' : {'tab' : self.activeTab}
+      });
+    }, 1);
   });
 });

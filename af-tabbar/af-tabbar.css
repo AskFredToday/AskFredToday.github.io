@@ -23,6 +23,7 @@ af-tabbar li, [data-is="af-tabbar"] li {
 
 af-tabbar li:hover, [data-is="af-tabbar"] li:hover {
     cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 af-tabbar .is-active, [data-is="af-tabbar"] .is-active {

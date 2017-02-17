@@ -1,6 +1,6 @@
 <af-tabbar>
   <ul>
-    <li each={ tab, i in tabs } class="tab { is-active: parent.isActiveTab(tab.id) }" onclick={ parent.toggleTab }>{tab.title}</li>
+    <li each={ tab, i in tabs } class={ is-active: parent.isActiveTab(tab.id) } onclick={ parent.toggleTab }>{tab.title}</li>
   </ul>
   <div class="after"></div>
 
@@ -22,10 +22,12 @@
     self.opts.bus && self.opts.bus.trigger('tabchanged', e.item.tab);
   }
   this.on('mount', function() {
-    self.toggleTab({
-      'target' : self.root.getElementsByClassName('is-active')[0],
-      'item' : {'tab' : self.activeTab}
-    });
+    setTimeout(function() {
+      self.toggleTab({
+        'target' : self.root.getElementsByClassName('is-active')[0],
+        'item' : {'tab' : self.activeTab}
+      });
+    }, 1); // Timeout avoids bad width calculation on webkit
   });
   </script>
 </af-tabbar>

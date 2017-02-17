@@ -1,0 +1,39 @@
+af-collapsible ul, [data-is="af-collapsible"] ul {
+    border-top: 1px solid #ddd;
+    padding: 0;
+}
+
+af-collapsible li, [data-is="af-collapsible"] li {
+    transition: all .2s;
+    transition-timing-function: cubic-bezier(.4,0,.2,1);
+    box-shadow: 0 0px 0px 0 rgba(0,0,0,0.14), 0 0px 0px 0 rgba(0,0,0,0.12), 0 0px 0px 0px rgba(0,0,0,0.2);
+}
+af-collapsible li.is-active, [data-is="af-collapsible"] li.is-active {
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+}
+
+af-collapsible li > *, [data-is="af-collapsible"] li > * {
+    padding: 0 10px;
+    line-height: 43px;
+}
+
+af-collapsible .body, [data-is="af-collapsible"] .body {
+    max-height: 0px;
+    overflow: hidden;
+    display: block;
+    transition: all .2s;
+    transition-timing-function: cubic-bezier(.4,0,.2,1);
+}
+
+af-collapsible .is-active .body, [data-is="af-collapsible"] .is-active .body {
+    max-height: 800px;
+    overflow-y: scroll;
+}
+
+af-collapsible .header, [data-is="af-collapsible"] .header {
+    border-bottom: 1px solid #ddd;
+}
+
+af-collapsible .is-active .header, [data-is="af-collapsible"] .is-active .header {
+    color: #3f51b5;
+}
