@@ -1,3 +1,7 @@
+af-collapsible {
+    display: block;
+}
+
 af-collapsible ul, [data-is="af-collapsible"] ul {
     border-top: 1px solid #ddd;
     padding: 0;
@@ -5,6 +9,7 @@ af-collapsible ul, [data-is="af-collapsible"] ul {
 }
 
 af-collapsible li, [data-is="af-collapsible"] li {
+    list-style-type: none;
     transition: all .2s;
     transition-timing-function: cubic-bezier(.4,0,.2,1);
     box-shadow: 0 0px 0px 0 rgba(0,0,0,0.14), 0 0px 0px 0 rgba(0,0,0,0.12), 0 0px 0px 0px rgba(0,0,0,0.2);
@@ -14,7 +19,7 @@ af-collapsible li.is-active, [data-is="af-collapsible"] li.is-active {
 }
 
 af-collapsible li > *, [data-is="af-collapsible"] li > * {
-    padding: 0 10px;
+    padding-left: 10px;
     line-height: 43px;
 }
 
@@ -26,7 +31,7 @@ af-collapsible .body, [data-is="af-collapsible"] .body {
     transition-timing-function: cubic-bezier(.4,0,.2,1);
 }
 
-af-collapsible .is-active .body, [data-is="af-collapsible"] .is-active .body {
+af-collapsible .is-active > .body, [data-is="af-collapsible"] .is-active > .body {
     max-height: 800px;
     overflow-y: scroll;
 }
@@ -40,6 +45,6 @@ af-collapsible .header:hover, [data-is="af-collapsible"] .header:hover {
     background-color: rgba(0, 0, 0, 0.1);
 }
 
-af-collapsible .is-active .header, [data-is="af-collapsible"] .is-active .header {
+af-collapsible .is-active > .header, [data-is="af-collapsible"] .is-active > .header {
     color: #3f51b5;
 }
