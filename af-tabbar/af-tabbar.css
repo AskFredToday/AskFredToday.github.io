@@ -1,3 +1,6 @@
+af-tabbar, [data-is="af-tabbar"] {
+    position: relative;
+}
 af-tabbar ul, [data-is="af-tabbar"] ul {
     position: relative;
     overflow-x: auto;

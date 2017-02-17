@@ -1,6 +1,7 @@
 af-collapsible ul, [data-is="af-collapsible"] ul {
     border-top: 1px solid #ddd;
     padding: 0;
+    margin: 0;
 }
 
 af-collapsible li, [data-is="af-collapsible"] li {
@@ -32,6 +33,11 @@ af-collapsible .is-active .body, [data-is="af-collapsible"] .is-active .body {
 
 af-collapsible .header, [data-is="af-collapsible"] .header {
     border-bottom: 1px solid #ddd;
+}
+
+af-collapsible .header:hover, [data-is="af-collapsible"] .header:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 af-collapsible .is-active .header, [data-is="af-collapsible"] .is-active .header {

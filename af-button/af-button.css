@@ -24,3 +24,6 @@ af-button, [data-is="af-button"] {
     line-height: 36px;
     vertical-align: middle;
 }
+af-button:hover, [data-is="af-button"]:hover {
+    background-color: rgba(0,0,0,0.2);
+}
