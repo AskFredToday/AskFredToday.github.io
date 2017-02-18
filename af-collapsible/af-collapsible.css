@@ -45,6 +45,6 @@ af-collapsible .header:hover, [data-is="af-collapsible"] .header:hover {
     background-color: rgba(0, 0, 0, 0.1);
 }
 
-af-collapsible .is-active > .header, [data-is="af-collapsible"] .is-active > .header {
+af-collapsible .is-focused.header, [data-is="af-collapsible"] .is-focused.header {
     color: #3f51b5;
 }
