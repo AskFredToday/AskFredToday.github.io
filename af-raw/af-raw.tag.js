@@ -4,7 +4,6 @@ riot.tag2('af-raw', '<div></div>', '', '', function(opts) {
             sanitized = text.replace(/</g, '&lt;')
             sanitized = sanitized.replace(/>/g, '&gt;')
             sanitized = sanitized.replace(/\n/g, '<br>')
-            console.log(sanitized);
             return sanitized;
         }
 
