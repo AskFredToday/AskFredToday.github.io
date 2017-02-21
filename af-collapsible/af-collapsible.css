@@ -3,7 +3,7 @@ af-collapsible {
 }
 
 af-collapsible ul, [data-is="af-collapsible"] ul {
-    border-top: 1px solid #ddd;
+    /*border-top: 1px solid #ddd;*/
     padding: 0;
     margin: 0;
 }
@@ -36,9 +36,9 @@ af-collapsible .is-active > .body, [data-is="af-collapsible"] .is-active > .body
     overflow-y: scroll;
 }
 
-af-collapsible .header, [data-is="af-collapsible"] .header {
+/*af-collapsible .header, [data-is="af-collapsible"] .header {
     border-bottom: 1px solid #ddd;
-}
+}*/
 
 af-collapsible .header:hover, [data-is="af-collapsible"] .header:hover {
     cursor: pointer;
@@ -47,4 +47,5 @@ af-collapsible .header:hover, [data-is="af-collapsible"] .header:hover {
 
 af-collapsible .is-focused.header, [data-is="af-collapsible"] .is-focused.header {
     color: #3f51b5;
+    border-right: solid 2px #3f51b5;
 }

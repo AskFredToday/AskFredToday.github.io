@@ -1,4 +1,4 @@
-riot.tag2('af-collapsible', '<ul><li each="{header, i in headers}" class="{is-active : header.isOpen && header.children}"><af-raw class="{header : true, is-focused : header.isFocused}" text="{header.title}" onclick="{parent.toggleHeader}"></af-raw><af-raw class="body" text="{header.body}" if="{header.body}"></af-raw><af-collapsible class="body" headers="{header.children}" if="{header.children}" bus="{parent.opts.bus}" multiple="{parent.opts.multiple}"></af-collapsible></li></ul>', '', '', function(opts) {
+riot.tag2('af-collapsible', '<ul><li each="{header, i in headers}" class="{is-active : (header.isOpen && header.children) || (header.isFocused && !header.children)}"><af-raw class="{header : true, is-focused : header.isFocused}" text="{header.title}" onclick="{parent.toggleHeader}"></af-raw><af-raw class="body" text="{header.body}" if="{header.body}"></af-raw><af-collapsible class="body" headers="{header.children}" if="{header.children}" bus="{parent.opts.bus}" multiple="{parent.opts.multiple}"></af-collapsible></li></ul>', '', '', function(opts) {
   var self = this;
   self.headers = opts.headers;
   if(!self.opts.multiple) {
@@ -27,7 +27,7 @@ riot.tag2('af-collapsible', '<ul><li each="{header, i in headers}" class="{is-ac
   opts.bus && opts.bus.on('headerchanged', function(newHeader) {
     var header;
     for(var i = 0, j =  self.headers.length; i < j; ++i) {
-      header = self.headers[i]
+      header = self.headers[i];
       if(header.isFocused && header != newHeader) {
         self.headers[i].isFocused = false;
         self.update();
@@ -36,4 +36,10 @@ riot.tag2('af-collapsible', '<ul><li each="{header, i in headers}" class="{is-ac
     }
 
   });
+
+  opts.rootbus && opts.rootbus.on('headersupdated', function(newHeaders) {
+    self.headers = newHeaders;
+    self.update();
+  });
+
 });
