@@ -2,6 +2,12 @@ af-collapsible {
     display: block;
 }
 
+af-collapsible .headeraction, [data-is="af-collapsible"] .headeraction {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+}
+
 af-collapsible ul, [data-is="af-collapsible"] ul {
     /*border-top: 1px solid #ddd;*/
     padding: 0;
@@ -9,6 +15,7 @@ af-collapsible ul, [data-is="af-collapsible"] ul {
 }
 
 af-collapsible li, [data-is="af-collapsible"] li {
+    position: relative;
     list-style-type: none;
     transition: all .2s;
     transition-timing-function: cubic-bezier(.4,0,.2,1);

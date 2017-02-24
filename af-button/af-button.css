@@ -21,7 +21,7 @@ af-button, [data-is="af-button"] {
     cursor: pointer;
     text-decoration: none;
     text-align: center;
-    line-height: 36px;
+    line-height: 36px !important;
     vertical-align: middle;
 }
 af-button:hover, [data-is="af-button"]:hover {
