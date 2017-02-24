@@ -1,12 +1,15 @@
 af-input {
     padding-top: 17px;
     position: relative;
+    display: block;
 }
 af-input input {
     border: none;
     outline: none;
     border-bottom: 1px solid rgba(0,0,0,.12);
     background:none;
+    width: 100%;
+    padding: 0;
 }
 af-input label {
     position: absolute;
@@ -18,9 +21,9 @@ af-input label {
     transition: all .2s;
     transition-timing-function: cubic-bezier(.4,0,.2,1);
 }
-label {
+af-input label {
     cursor: text;
-    color: rgba(0,0,0,.12);
+    color: rgba(0,0,0,.4);
 }
 af-input input.isFilled ~ label {
     padding-top: 0px;
@@ -37,7 +40,6 @@ af-input input.isFocused ~ .after {
 
 af-input .after {
     background-color: #3f51b5;
-    bottom: -3px;
     content: '';
     height: 2px;
     left: 45%;

@@ -1,8 +1,8 @@
 af-select {
     padding-top: 17px;
     position: relative;
-    display: inline-block;
-    width: 200px;
+    display: block;
+    width: 100%;
 }
 af-select .input {
     border: none;
@@ -10,7 +10,7 @@ af-select .input {
     border-bottom: 1px solid rgba(0,0,0,.12);
     width: 220px;
     background: none;
-    padding-right: 40px;
+    width: 100%;
 }
 af-select label {
     position: absolute;
@@ -30,8 +30,8 @@ af-select i {
 af-select * {
     cursor: pointer;
 }
-label, i {
-    color: rgba(0,0,0,.12);
+af-select label, af-select i {
+    color: rgba(0,0,0,.4);
 }
 af-select .input.isFilled ~ label {
     padding-top: 0px;
@@ -43,7 +43,7 @@ af-select > div.options {
     left: 0px;
     top: -5px;
     background: white;
-    width: 220px;
+    width: 100%;
     max-height:60px;
     visibility: hidden;
     overflow-y:scroll;
