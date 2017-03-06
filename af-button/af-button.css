@@ -1,5 +1,5 @@
-af-button, [data-is="af-button"] {
-    background: rgba(158,158,158,.2);
+af-button>div, [data-is="af-button"]>div {
+    background-color: rgba(158,158,158,.2);
     box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
     border: none;
     border-radius: 2px;
@@ -24,6 +24,14 @@ af-button, [data-is="af-button"] {
     line-height: 36px !important;
     vertical-align: middle;
 }
-af-button:hover, [data-is="af-button"]:hover {
+af-button>div:hover, [data-is="af-button"]>div:hover {
     background-color: rgba(0,0,0,0.2);
+}
+af-button>div.disabled:hover, [data-is="af-button"]>div.disabled:hover {
+    background-color: rgba(158,158,158,.2);
+    cursor: auto;
+}
+af-button>div.disabled, [data-is="af-button"]>div.disabled {
+    box-shadow: none;
+    color: rgba(0,0,0,0.2);
 }
