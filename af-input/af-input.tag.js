@@ -1,28 +1,37 @@
-riot.tag2('af-input', '<input riot-value="{opts.initvalue}" onfocus="{onFocus}" onblur="{onBlur}" type="{opts.type}"><label onclick="{focusInput}">{opts.label}</label><div class="after"></div>', '', '', function(opts) {
+riot.tag2('af-input', '<input riot-value="{currentvalue}" onfocus="{onFocus}" onblur="{onBlur}" type="{opts.type}" onkeyup="{onEdit}"><label onclick="{focusInput}">{opts.label}</label><div class="after"></div>', '', '', function(opts) {
         var self = this;
+        self.currentvalue = opts.initvalue;
+
         this.on('mount', function(){
             this.inputField = this.root.getElementsByTagName('input')[0];
             this.updateClassName();
         })
 
         this.onFocus = function(e) {
-            this.inputField.className = 'isFocused isFilled'
+            self.inputField.className = 'isFocused isFilled'
+        }.bind(this)
+
+        this.onEdit = function(e) {
+            self.currentvalue = e.target.value;
+            self.opts.bus && self.opts.bus.trigger('newValue', self.opts.iid, e.target.value);
         }.bind(this)
 
         this.onBlur = function(e) {
-            this.updateClassName();
-            opts.bus && opts.bus.trigger('newValue', this.opts.iid, e.target.value);
+            self.updateClassName();
+            self.currentvalue = e.target.value;
+            self.opts.bus && self.opts.bus.trigger('newValue', self.opts.iid, e.target.value);
         }.bind(this)
 
         this.focusInput = function() {
-            this.inputField.focus();
+            self.inputField.focus();
         }.bind(this)
 
         this.updateClassName = function() {
-            this.inputField.className = (this.inputField.value != '')?'isFilled':'';
+            self.inputField.className = (self.inputField.value != '')?'isFilled':'';
         }.bind(this)
 
-        opts.bus && opts.bus.on('setValue', function(newValue) {
-            self.inputField.value = newValue;
+        self.opts.bus && self.opts.bus.on('setValue', function(newValue) {
+            self.currentvalue = newValue;
+            self.update();
         });
 });
