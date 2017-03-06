@@ -7,9 +7,11 @@ riot.tag2('af-tabbar', '<ul><li each="{tab, i in tabs}" class="{is-active: paren
     return this.activeTab.id === id;
   };
   this.toggleTab = function(e) {
-    var clicked = self.root.getElementsByClassName('after')[0];
-    clicked.style.left = e.target.offsetLeft + 'px';
-    clicked.style.width = e.target.offsetWidth + 'px';
+    var after = self.root.getElementsByClassName('after')[0];
+    self.after = after;
+    self.afterleft = e.target.offsetLeft;
+    after.style.left = (self.afterleft - e.target.parentNode.scrollLeft) + 'px';
+    after.style.width = e.target.offsetWidth + 'px';
     self.activeTab = e.item.tab;
 
     self.opts.bus && self.opts.bus.trigger('tabchanged', e.item.tab);
@@ -20,6 +22,10 @@ riot.tag2('af-tabbar', '<ul><li each="{tab, i in tabs}" class="{is-active: paren
         'target' : self.root.getElementsByClassName('is-active')[0],
         'item' : {'tab' : self.activeTab}
       });
+      self.root.firstChild.onscroll = function() {
+        self.after.style.left = (self.afterleft - this.scrollLeft) + 'px';
+      };
     }, 1);
   });
+  this.root
 });

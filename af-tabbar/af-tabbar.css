@@ -1,5 +1,6 @@
 af-tabbar, [data-is="af-tabbar"] {
     position: relative;
+    overflow-x: scroll;
 }
 af-tabbar ul, [data-is="af-tabbar"] ul {
     position: relative;
