@@ -6,7 +6,7 @@
     <script>
       var self = this;
       self.bus = riot.observable();
-      self.number = '';
+      self.number = self.opts.number;
 
       self.bus.on('click', function() {
         self.opts.bus.trigger('dial', self.number);
