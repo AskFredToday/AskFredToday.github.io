@@ -9,7 +9,14 @@
       self.number = self.opts.number;
 
       self.bus.on('click', function() {
-        self.opts.bus.trigger('dial', self.number);
+        if(self.session) {
+          self.session.terminate();
+          self.session = null;
+          self.bus.trigger('updatebuttontext', 'Dial');
+        }
+        else {
+          self.opts.bus.trigger('dial', self.number);
+        }
       });
 
       self.bus.on('newValue', function(id, val) {
@@ -74,9 +81,11 @@
 
         opts.bus && opts.bus.on('dial', function(destination) {
             self.session = self.ua.call(destination, self.options);
+            self.bus.trigger('updatebuttontext', 'Hangup');
         });
 
         // Depends on https://cdnjs.cloudflare.com/ajax/libs/jssip/3.0.3/jssip.min.js
+        // Documentation on http://jssip.net/documentation/3.0.x/api/session/
         if(!window.hasOwnProperty('JsSIP')) {
             var script = document.createElement('script');
             script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jssip/3.0.3/jssip.min.js';

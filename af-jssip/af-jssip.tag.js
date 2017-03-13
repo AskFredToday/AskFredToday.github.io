@@ -4,7 +4,14 @@ riot.tag2('af-jssip', '<audio id="remoteAudio"></audio><af-input id="jssip" labe
       self.number = self.opts.number;
 
       self.bus.on('click', function() {
-        self.opts.bus.trigger('dial', self.number);
+        if(self.session) {
+          self.session.terminate();
+          self.session = null;
+          self.bus.trigger('updatebuttontext', 'Dial');
+        }
+        else {
+          self.opts.bus.trigger('dial', self.number);
+        }
       });
 
       self.bus.on('newValue', function(id, val) {
@@ -66,6 +73,7 @@ riot.tag2('af-jssip', '<audio id="remoteAudio"></audio><af-input id="jssip" labe
 
         opts.bus && opts.bus.on('dial', function(destination) {
             self.session = self.ua.call(destination, self.options);
+            self.bus.trigger('updatebuttontext', 'Hangup');
         });
 
         if(!window.hasOwnProperty('JsSIP')) {
