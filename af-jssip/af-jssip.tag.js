@@ -1,7 +1,7 @@
-riot.tag2('af-jssip', '<audio id="remoteAudio"></audio><af-input id="jssip" label="Number" bus="{bus}" initvalue="{number}"></af-input><af-button starttext="Dial" bus="{bus}"></af-button>', '', '', function(opts) {
+riot.tag2('af-jssip', '<audio id="remoteAudio"></audio><af-input id="jssip" label="Number" bus="{bus}" initvalue="{opts.number}"></af-input><af-button buttontext="Dial" bus="{bus}"></af-button>', '', '', function(opts) {
       var self = this;
       self.bus = riot.observable();
-      self.number = '+19178196323';
+      self.number = '';
 
       self.bus.on('click', function() {
         self.opts.bus.trigger('dial', self.number);
@@ -42,10 +42,10 @@ riot.tag2('af-jssip', '<audio id="remoteAudio"></audio><af-input id="jssip" labe
               var localStream = self.session.connection.getLocalStreams()[0];
               dtmfSender = self.session.connection.createDTMFSender(localStream.getAudioTracks()[0]);
             },
-            'addstream': function(e) {
+            'accepted': function(e) {
 
               var remoteAudio = document.getElementById('remoteAudio');
-              remoteAudio.src = window.URL.createObjectURL(e.stream);
+              remoteAudio.src = window.URL.createObjectURL(self.session.connection.getRemoteStreams()[0]);
               remoteAudio.play();
             }
           };
@@ -61,36 +61,11 @@ riot.tag2('af-jssip', '<audio id="remoteAudio"></audio><af-input id="jssip" labe
 
           self.ua.on("newRTCSession", function(data){
             console.log(data);
-   var session = data.session;
-    var dtmfSender;
-    session.on("confirmed",function(){
-
-        var localStream = session.connection.getLocalStreams()[0];
-        dtmfSender = session.connection.createDTMFSender(localStream.getAudioTracks()[0])
-    });
-    session.on("ended",function(){
-
-    });
-    session.on("failed",function(){
-
-    });
-    session.on('addstream', function(e){
-
-              var remoteAudio = document.getElementById('remoteAudio');
-        remoteAudio.src = window.URL.createObjectURL(e.stream);
-        remoteAudio.play();
-    });
           });
-      }
+        }
 
         opts.bus && opts.bus.on('dial', function(destination) {
             self.session = self.ua.call(destination, self.options);
-            self.session.on('addstream', function(e) {
-
-              var remoteAudio = document.getElementById('remoteAudio');
-              remoteAudio.src = window.URL.createObjectURL(e.stream);
-              remoteAudio.play();
-            });
         });
 
         if(!window.hasOwnProperty('JsSIP')) {
