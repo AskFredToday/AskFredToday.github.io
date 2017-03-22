@@ -1,23 +1,40 @@
 <af-jssip>
     <audio id="remoteAudio"></audio>
     <af-input id="jssip" label="Number" bus={ bus } initvalue={ opts.number }></af-input>
-    <af-button buttontext="Dial" bus={ bus }></af-button>
+    <af-button buttontext="Dial" bus={ dialbus }></af-button>
+    <af-button buttontext="Mute" bus={ mutebus }></af-button>
 
     <script>
       var self = this;
       self.bus = riot.observable();
       self.number = self.opts.number;
 
-      self.bus.on('click', function() {
+      self.dialbus = riot.observable();
+      self.dialbus.on('click', function() {
         if(self.session) {
           self.session.terminate();
           self.session = null;
-          self.bus.trigger('updatebuttontext', 'Dial');
+          self.dialbus.trigger('updatebuttontext', 'Dial');
         }
         else {
           self.opts.bus.trigger('dial', self.number);
         }
       });
+
+      self.mutebus = riot.observable();
+      self.mutebus.on('click', function() {
+        if(self.session) {
+          var muteState = self.session.isMuted();
+          if(muteState.audio) {
+            self.session.unmute({audio : true, video : true});
+          }
+          else {
+            self.session.mute({audio : true, video : true});
+          }
+          self.mutebus.trigger('updatebuttontext', (muteState.audio)?'MUTE':'UNMUTE');
+        }
+      });
+
 
       self.bus.on('newValue', function(id, val) {
         self.number = val;
@@ -81,7 +98,7 @@
 
         opts.bus && opts.bus.on('dial', function(destination) {
             self.session = self.ua.call(destination, self.options);
-            self.bus.trigger('updatebuttontext', 'Hangup');
+            self.dialbus.trigger('updatebuttontext', 'Hangup');
         });
 
         // Depends on https://cdnjs.cloudflare.com/ajax/libs/jssip/3.0.3/jssip.min.js
