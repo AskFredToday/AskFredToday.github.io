@@ -12,9 +12,7 @@
       self.dialbus = riot.observable();
       self.dialbus.on('click', function() {
         if(self.session) {
-          self.session.terminate();
-          self.session = null;
-          self.dialbus.trigger('updatebuttontext', 'Dial');
+          self.opts.bus.trigger('hangup');
         }
         else {
           self.opts.bus.trigger('dial', self.number);
@@ -24,14 +22,7 @@
       self.mutebus = riot.observable();
       self.mutebus.on('click', function() {
         if(self.session) {
-          var muteState = self.session.isMuted();
-          if(muteState.audio) {
-            self.session.unmute({audio : true, video : true});
-          }
-          else {
-            self.session.mute({audio : true, video : true});
-          }
-          self.mutebus.trigger('updatebuttontext', (muteState.audio)?'MUTE':'UNMUTE');
+          self.opts.bus.trigger('togglemute', self.number);
         }
       });
 
@@ -101,6 +92,22 @@
             self.dialbus.trigger('updatebuttontext', 'Hangup');
         });
 
+        opts.bus && opts.bus.on('hangup', function() {
+            self.session.terminate();
+            self.session = null;
+            self.dialbus.trigger('updatebuttontext', 'Dial');
+        });
+
+        opts.bus && opts.bus.on('togglemute', function() {
+            var muteState = self.session.isMuted();
+            if(muteState.audio) {
+              self.session.unmute({audio : true, video : true});
+            }
+            else {
+              self.session.mute({audio : true, video : true});
+            }
+            self.mutebus.trigger('updatebuttontext', (muteState.audio)?'MUTE':'UNMUTE');
+        });
         // Depends on https://cdnjs.cloudflare.com/ajax/libs/jssip/3.0.3/jssip.min.js
         // Documentation on http://jssip.net/documentation/3.0.x/api/session/
         if(!window.hasOwnProperty('JsSIP')) {

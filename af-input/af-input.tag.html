@@ -1,5 +1,5 @@
 <af-input>
-    <input value={ currentvalue } onfocus={ onFocus } onblur={ onBlur } type={ opts.type } onkeyup={ onEdit }>
+    <input value={ currentvalue } onfocus={ onFocus } onblur={ onBlur } type={ opts.type } oninput={ onEdit }>
     <label onclick={ focusInput }>{ opts.label }</label>
     <div class="after"></div>
 
@@ -7,31 +7,31 @@
         var self = this;
         self.currentvalue = opts.initvalue;
 
-        this.on('mount', function(){
-            this.inputField = this.root.getElementsByTagName('input')[0];
-            this.updateClassName();
+        self.on('mount', function(){
+            self.inputField = self.root.getElementsByTagName('input')[0];
+            self.updateClassName();
         })
 
-        onFocus(e) {
+        self.onFocus = function(e) {
             self.inputField.className = 'isFocused isFilled'
         }
 
-        onEdit(e) {
+        self.onEdit = function(e) {
             self.currentvalue = e.target.value;
             self.opts.bus && self.opts.bus.trigger('newValue', self.opts.iid, e.target.value);
         }
 
-        onBlur(e) {
+        self.onBlur = function(e) {
             self.updateClassName();
             self.currentvalue = e.target.value;
             self.opts.bus && self.opts.bus.trigger('newValue', self.opts.iid, e.target.value);
         }
         
-        focusInput() {
+        self.focusInput = function() {
             self.inputField.focus();
         }
 
-        updateClassName() {
+        self.updateClassName = function() {
             self.inputField.className = (self.inputField.value != '')?'isFilled':'';
         }
 
@@ -39,5 +39,10 @@
             self.currentvalue = newValue;
             self.update();
         });
+
+        self.opts.bus && self.opts.bus.on('setFocus', function() {
+            self.focusInput();
+        });
+
     </script>
 </af-input>

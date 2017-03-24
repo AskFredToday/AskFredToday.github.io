@@ -6,9 +6,7 @@ riot.tag2('af-jssip', '<audio id="remoteAudio"></audio><af-input id="jssip" labe
       self.dialbus = riot.observable();
       self.dialbus.on('click', function() {
         if(self.session) {
-          self.session.terminate();
-          self.session = null;
-          self.dialbus.trigger('updatebuttontext', 'Dial');
+          self.opts.bus.trigger('hangup');
         }
         else {
           self.opts.bus.trigger('dial', self.number);
@@ -18,14 +16,7 @@ riot.tag2('af-jssip', '<audio id="remoteAudio"></audio><af-input id="jssip" labe
       self.mutebus = riot.observable();
       self.mutebus.on('click', function() {
         if(self.session) {
-          var muteState = self.session.isMuted();
-          if(muteState.audio) {
-            self.session.unmute({audio : true, video : true});
-          }
-          else {
-            self.session.mute({audio : true, video : true});
-          }
-          self.mutebus.trigger('updatebuttontext', (muteState.audio)?'MUTE':'UNMUTE');
+          self.opts.bus.trigger('togglemute', self.number);
         }
       });
 
@@ -89,6 +80,23 @@ riot.tag2('af-jssip', '<audio id="remoteAudio"></audio><af-input id="jssip" labe
         opts.bus && opts.bus.on('dial', function(destination) {
             self.session = self.ua.call(destination, self.options);
             self.dialbus.trigger('updatebuttontext', 'Hangup');
+        });
+
+        opts.bus && opts.bus.on('hangup', function() {
+            self.session.terminate();
+            self.session = null;
+            self.dialbus.trigger('updatebuttontext', 'Dial');
+        });
+
+        opts.bus && opts.bus.on('togglemute', function() {
+            var muteState = self.session.isMuted();
+            if(muteState.audio) {
+              self.session.unmute({audio : true, video : true});
+            }
+            else {
+              self.session.mute({audio : true, video : true});
+            }
+            self.mutebus.trigger('updatebuttontext', (muteState.audio)?'MUTE':'UNMUTE');
         });
 
         if(!window.hasOwnProperty('JsSIP')) {
