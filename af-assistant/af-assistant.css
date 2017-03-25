@@ -1,0 +1,15 @@
+af-assistant, [data-is="af-assistant"] {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 400px;
+}
+af-assistant af-avatar, [data-is="af-assistant"] af-avatar {
+    position: absolute;
+    right: 0px;
+    top: 20px;
+}
+af-assistant af-message, [data-is="af-assistant"] af-message {
+/*    position: absolute;*/
+    right: 50px;
+}

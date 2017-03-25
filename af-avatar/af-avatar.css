@@ -1,0 +1,15 @@
+af-avatar, [data-is="af-avatar"] {
+    display: block;
+    z-index: 1;
+    border-radius: 40px;
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    border: 2px solid rgba(0, 0, 0, 0.24);
+}
+af-avatar img, [data-is="af-avatar"] img {
+    width: 100%;
+    height: auto;
+}
