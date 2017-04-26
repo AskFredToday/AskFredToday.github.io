@@ -24,4 +24,13 @@ riot.tag2('af-message', '<textarea rows="1" if="{!isright}" riot-value="{message
         self.opts.bus && self.opts.bus.trigger('newmessagevalue', e.target.value);
     };
 
+    if(!window.hasOwnProperty('getCaretCoordinates')) {
+        var script = document.createElement('script');
+        script.src = 'https://askfred.today/riot_tags/af-message/getCaretPosition.js';
+        script.onload = function () {
+            console.log("CARET POSITION LOADED");
+        };
+        document.head.appendChild(script);
+    }
+
 });

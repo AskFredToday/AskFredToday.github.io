@@ -5,6 +5,17 @@
     <af-button buttontext="Mute" bus={ mutebus }></af-button>
 
     <script>
+      /* API
+       *
+       * Listens for events
+       * 'hangup'
+       * 'dial', number
+       * 'setmutestate', ismuted
+       *
+       * Generates additional events
+       * 'mutestatechanged'
+       */
+
       var self = this;
       self.bus = riot.observable();
       self.number = self.opts.number;

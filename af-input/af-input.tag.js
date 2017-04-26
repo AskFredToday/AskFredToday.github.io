@@ -1,6 +1,11 @@
-riot.tag2('af-input', '<input riot-value="{currentvalue}" onfocus="{onFocus}" onblur="{onBlur}" type="{opts.type}" oninput="{onEdit}"><label onclick="{focusInput}">{opts.label}</label><div class="after"></div>', '', '', function(opts) {
+riot.tag2('af-input', '<form name="{opts.name}" onsubmit="{onsubmit}" autocomplete="on"><input riot-value="{currentvalue}" onfocus="{onFocus}" onblur="{onBlur}" type="{opts.type}" oninput="{onEdit}" name="{opts.name}" autocomplete="on"><label onclick="{focusInput}">{opts.label}</label><div class="after"></div></form>', '', '', function(opts) {
         var self = this;
         self.currentvalue = opts.initvalue;
+
+        self.onsubmit = function(e) {
+            e.preventDefault();
+            self.opts.bus && self.opts.bus.trigger('submit', self.opts.iid, self.currentValue);
+        };
 
         self.on('mount', function(){
             self.inputField = self.root.getElementsByTagName('input')[0];

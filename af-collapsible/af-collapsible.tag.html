@@ -1,9 +1,9 @@
 <af-collapsible>
   <ul>
-    <li each={ header, i in headers } class={ is-active : (header.isOpen && header.children) || (header.isFocused && !header.children), is-focused : header.isFocused }>
+    <li each={ header, i in headers } class={ is-active : (header.isOpen && header.children) || (header.isFocused && !header.children) , is-focused : header.isFocused }>
       <af-raw class={ header : true } text={ header.title } onclick={ parent.toggleHeader }></af-raw>
       <af-button class="headeraction" if={ header.action } buttontext={ header.action } bus={ parent.opts.bus } header={ header }></af-button>
-      <af-raw class="body" text={ header.body } if={ header.body }></af-raw>
+      <af-raw class="body" text={ header.body } payload={ header } if={ header.body && header.isOpen }></af-raw>
       <af-collapsible class="body" headers={ header.children } if={ header.children } bus={ parent.opts.bus } multiple={ parent.opts.multiple }></af-collapsible>
     </li>
   </ul>
@@ -44,7 +44,6 @@
         break;
       }
     }
-
   });
 
   opts.rootbus && opts.rootbus.on('headersupdated', function(newHeaders) {

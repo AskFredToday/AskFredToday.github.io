@@ -1,4 +1,6 @@
 riot.tag2('af-jssip', '<audio id="remoteAudio"></audio><af-input id="jssip" label="Number" bus="{bus}" initvalue="{opts.number}"></af-input><af-button buttontext="Dial" bus="{dialbus}"></af-button><af-button buttontext="Mute" bus="{mutebus}"></af-button>', '', '', function(opts) {
+
+
       var self = this;
       self.bus = riot.observable();
       self.number = self.opts.number;

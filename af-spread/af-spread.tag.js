@@ -11,7 +11,7 @@ riot.tag2('af-spread', '<div></div>', '', '', function(opts) {
     };
     source.onmessage = function (event) {
         var splitted = event.data.split('\n');
-        var pathAsArray = splitted.shift().split('/');
+        var pathAsArray = parse_path(splitted.shift());
         var from = splitted.shift();
         var lastUpdate = new Date(parseInt(splitted.shift(), 10));
         var payload = splitted.join('\n');
@@ -37,5 +37,12 @@ riot.tag2('af-spread', '<div></div>', '', '', function(opts) {
         req.setRequestHeader("Authorization", "Bearer FRED");
         req.send(payload);
     });
+
+    function parse_path(path) {
+        var splitted = path.split('/');
+        return splitted.map(function(x) {
+            return decodeURI(x);
+        });
+    }
 
 });

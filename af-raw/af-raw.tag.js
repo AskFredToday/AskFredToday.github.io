@@ -9,6 +9,12 @@ riot.tag2('af-raw', '<div></div>', '', '', function(opts) {
 
         var self = this;
         this.on('mount', function() {
-            self.root.firstChild.innerHTML = sanitize(opts.text);
+            if(self.opts.payload && self.opts.payload.tagname) {
+                console.log('raw mount', self.opts.payload);
+                riot.mount(self.root.firstChild, self.opts.payload.tagname, self.opts.payload.tagargs);
+            }
+            else {
+                self.root.firstChild.innerHTML = sanitize(opts.text);
+            }
         })
 });

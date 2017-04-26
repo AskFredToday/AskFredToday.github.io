@@ -1,4 +1,4 @@
-riot.tag2('af-vlc', '<h2 title="{this.opts.url}">{opts.title}</h2><embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org" width="320" height="180">', '', '', function(opts) {
+riot.tag2('af-vlc', '<embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org" width="320" height="180">', '', '', function(opts) {
 
 
         this.on('mount', function() {
@@ -11,7 +11,15 @@ riot.tag2('af-vlc', '<h2 title="{this.opts.url}">{opts.title}</h2><embed type="a
             if(this.vlc.playlist)
             {
                 var options = new Array(":aspect-ratio=16:9");
-                var id = this.vlc.playlist.add(this.opts.url, this.opts.title, options);
+                var url = this.opts.url;
+                if(url.split('udp://').length > 1) {
+                    var ip = url.split('udp://')[1];
+                    var first = parseInt(ip.split(".")[0], 10);
+                    if(first > 223 && first < 240) {
+                        url = 'udp://@' + ip;
+                    }
+                }
+                var id = this.vlc.playlist.add(url, this.opts.title, options);
                 this.vlc.playlist.playItem(id);
                 this.vlc.audio.toggleMute();
             }
