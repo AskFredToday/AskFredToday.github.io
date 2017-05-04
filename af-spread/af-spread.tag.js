@@ -41,7 +41,7 @@ riot.tag2('af-spread', '<div></div>', '', '', function(opts) {
     function parse_path(path) {
         var splitted = path.split('/');
         return splitted.map(function(x) {
-            return decodeURI(x);
+            return decodeURIComponent(x);
         });
     }
 
