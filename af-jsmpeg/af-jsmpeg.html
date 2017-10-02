@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>af-jsmpeg test page</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+        <script src="https://cdn.jsdelivr.net/riot/3.3.2/riot.min.js"></script>
+
+        <!-- Get tag from askfred -->
+        <script src="/js/jsmpeg.min.js"></script>
+        <script src="/riot_tags/af-jsmpeg/af-jsmpeg.tag.min.js"></script>
+
+    </head>
+    <body>
+        <div id="player1"></div>
+        <div id="player2"></div>
+    </body>
+
+    <script>
+        window.onload = function() {
+            var bus = riot.observable();
+            riot.mount('#player1', 'af-jsmpeg', {'bus': bus, 'channel': '1'});
+            riot.mount('#player2', 'af-jsmpeg', {'bus': bus, 'channel': '2'});
+        }
+
+    </script>
+</html>

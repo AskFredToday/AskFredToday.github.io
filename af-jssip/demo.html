@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>JSSIP tag demo</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="icon" type="image/png" href="favicon.ico" />
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="css/index.css">
+
+        <script src="https://cdn.jsdelivr.net/riot/3.1/riot.min.js"></script>
+
+        <!-- Deps -->
+        <link rel="stylesheet" href="../af-button/af-button.css">
+        <script src="../af-button/af-button.tag.js"></script>
+        <link rel="stylesheet" href="../af-input/af-input.css">
+        <script src="../af-input/af-input.tag.js"></script>
+
+        <!-- JSSIP Tag -->
+        <script src="af-jssip.tag.js"></script>
+    </head>
+    <body>
+        <div id="jssiptag">Loading JSSIP tag...</div>
+        <script>
+            window.onload = function() {
+                var bus = riot.observable();
+                riot.mount('#jssiptag', 'af-jssip', {'bus': bus, 'wsurl' : 'wss://saxophone.dev-mastmobile.com:443', 'uri' : 'sip:operator@be01d01396.sip.staging-gridmobile.com', 'password' : 'ce4bb8b13f9299b4', 'number' : '+19178196323'});
+            };
+        </script>
+    </body>
+</html>

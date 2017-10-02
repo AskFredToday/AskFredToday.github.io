@@ -1,0 +1,9 @@
+<af-rawhtml>
+    <div></div>
+
+    <script>
+        this.set = function() { this.root.innerHTML = opts.html };
+        this.on('update', this.set);
+        this.on('mount', this.set);
+    </script>
+</af-rawhtml>

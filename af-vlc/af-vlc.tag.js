@@ -19,6 +19,7 @@ riot.tag2('af-vlc', '<embed type="application/x-vlc-plugin" pluginspage="http://
                         url = 'udp://@' + ip;
                     }
                 }
+
                 var id = this.vlc.playlist.add(url, this.opts.title, options);
                 this.vlc.playlist.playItem(id);
                 this.vlc.audio.toggleMute();
