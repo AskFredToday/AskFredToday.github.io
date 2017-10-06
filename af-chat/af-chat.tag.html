@@ -5,11 +5,11 @@
                 <figure class="avatar" if= { message.from != 'me' }>
                     <img src={ message.avatar } />
                 </figure>
-                { message.text }
+                { message.text || JSON.stringify(message) }
                 <div class="timestamp" if={ shouldDisplayTimestamp(index) }>{ getTimestamp(message.date) }</div>
             </div>
-            <div class="message loading new" if={ typing }>
-                <figure class="avatar">
+            <div class={ message : true, loading  : true, new : true, message-personal : typing.from == 'me' } if={ typing }>
+                <figure class="avatar" if={ typing.avatar }>
                     <img src={ typing.avatar } />
                 </figure>
                 <span></span>
@@ -22,14 +22,33 @@
     </div>
 
     <script>
+    // Credits https://stackoverflow.com/questions/1344500/efficient-way-to-insert-a-number-into-a-sorted-array-of-numbers/37337423#37337423
+    function addAndSort2(arr, val) {
+        arr.push(val);
+        i = arr.length - 1;
+        item = arr[i];
+        while (i > 0 && item.date < arr[i-1].date) {
+            arr[i] = arr[i-1];
+            i -= 1;
+        }
+        arr[i] = item;
+        return arr;
+    }
+
     var self = this;
-    self.messages = self.opts.messages || [];
+    self.messages = (self.opts.messages && self.opts.messages.slice()) || [];
     self.typing = self.opts.typing;
 
     self.getTimestamp = function(input){
-      var d = (input)?(new Date(input)):(new Date());
+      var now = new Date();
+      var d = (input)?(new Date(input)):now;
       var m = d.getMinutes();m = (m<10)?'0'+m:m;
-      return d.getHours() + ':' + m;
+      if(d.toDateString() != now.toDateString()) {
+        return d.toDateString().slice(0,-5) + ' ' + d.getHours() + ':' + m;
+      }
+      else {
+        return d.getHours() + ':' + m;
+      }
     }
 
     self.updateScroll = function() {
@@ -56,17 +75,15 @@
     });
 
     self.opts.bus && self.opts.bus.on('newMessage', function(message, stoptyping) {
-        self.messages.push(message);
-        self.messages.sort(function(a, b) {
-            return a.date - b.date;
-        })
+        addAndSort2(self.messages, message);
         if(stoptyping) {
             self.typing = null;
         }
         setTimeout(function() {
             var elmts = self.root.getElementsByClassName('real');
-            elmts[elmts.length -1].className += ' new';
-        }, 1);
+            var className = elmts[elmts.length - 1].className;
+            if(className.split(' new').length == 1) elmts[elmts.length - 1].className += ' new';
+        }, 100);
         self.update();
     });
 

@@ -101,12 +101,17 @@ Messages
   position: relative;
   text-align: left;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+
+  hyphens: auto;
+  max-width: calc(100% - 70px);
+  word-wrap: break-word;
 }
 .messages .message .timestamp {
   position: absolute;
   bottom: -15px;
   font-size: 9px;
   color: rgba(255, 255, 255, 0.3);
+  white-space: nowrap;
 }
 .messages .message::before {
   content: '';
@@ -232,7 +237,7 @@ Message Box
 .message-box {
   width: 100%;
   background: rgba(0, 0, 0, 0.3);
-  padding: 10px 0;
+  padding: 10px 0 5px 0;
   position: relative;
   text-align: left;
 }
@@ -250,7 +255,6 @@ Message Box
 }
 .message-box textarea.message-input {
   position: relative;
-  top: 4px;
 }
 .message-box textarea:focus:-webkit-placeholder {
   color: transparent;
