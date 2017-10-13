@@ -16,7 +16,7 @@ riot.tag2('af-chat', '<div class="messages"><div class="messages-content"><div e
     self.messages = (self.opts.messages && self.opts.messages.slice()) || [];
     self.typing = self.opts.typing;
 
-    self.getTimestamp = function(input){
+    self.getTimestamp = function(input) {
       var now = new Date();
       var d = (input)?(new Date(input)):now;
       var m = d.getMinutes();m = (m<10)?'0'+m:m;
@@ -26,7 +26,7 @@ riot.tag2('af-chat', '<div class="messages"><div class="messages-content"><div e
       else {
         return d.getHours() + ':' + m;
       }
-    }
+    };
 
     self.updateScroll = function() {
         console.log("updateScroll");
@@ -75,6 +75,6 @@ riot.tag2('af-chat', '<div class="messages"><div class="messages-content"><div e
             return (index > 0 && Math.abs(self.messages[index - 1].date - date) > 60000) || (index == 0);
         }
         return false;
-    }
+    };
 
 });

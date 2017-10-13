@@ -87,7 +87,7 @@ Messages
   left: 0;
   height: 100%;
   width: 100%;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 .messages .message {
   clear: both;
@@ -255,6 +255,7 @@ Message Box
 }
 .message-box textarea.message-input {
   position: relative;
+  overflow: hidden;
 }
 .message-box textarea:focus:-webkit-placeholder {
   color: transparent;
